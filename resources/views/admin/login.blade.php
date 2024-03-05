@@ -30,7 +30,7 @@
                                 @if(session()->has('msg'))
                                     <p class="text-danger text-center">{{ session()->get('msg') }}</p>
                                 @endif
-                                <form action="{{ route('user.logaction') }}" method="post">
+                                <form action="{{ route('admin.logaction') }}" method="post">
                                     @csrf
                                     <div class="row">
                                         <div class="form-group col-md-12 mb-4">

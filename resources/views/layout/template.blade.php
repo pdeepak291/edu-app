@@ -11,6 +11,8 @@
         <link href="{{ asset('template/plugins/simplebar/simplebar.css') }}" rel="stylesheet" />
         <!-- MONO CSS -->
         <link id="main-css-href" rel="stylesheet" href="{{ asset('template/css/style.css') }}" />
+        <link rel="stylesheet" href="{{ asset('template/css/custom.css') }}" />
+        @yield('styles')
     </head>
     <body class="navbar-fixed sidebar-fixed" id="body">
         <div class="wrapper">
@@ -18,21 +20,22 @@
                 <div id="sidebar" class="sidebar sidebar-with-footer">
                     <!-- Aplication Brand -->
                     <div class="app-brand">
-                        <a href="{{ route('user.home') }}">
+                        <a href="{{ route('admin.home') }}">
                             <span class="brand-name">{{ config('app.name') }}</span>
                         </a>
                     </div>
                     <!-- begin sidebar scrollbar -->
                     <div class="sidebar-left" data-simplebar style="height: 100%;">
                         <!-- sidebar menu -->
-                        <ul class="nav sidebar-inner" id="sidebar-menu">
+                        {!! usermenus() !!}
+                        {{-- <ul class="nav sidebar-inner" id="sidebar-menu">
                             <li>
                                 <a class="sidenav-item-link" href="{{ route('user.home') }}">
                                     <i class="mdi mdi-briefcase-account-outline"></i>
                                     <span class="nav-text">Dashboard</span>
                                 </a>
                             </li>
-                        </ul>
+                        </ul> --}}
                     </div>
                 </div>
             </aside>
@@ -55,13 +58,13 @@
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li>
-                                            <a class="dropdown-link-item" href="{{ route('user.profile') }}">
+                                            <a class="dropdown-link-item" href="{{ route('admin.profile') }}">
                                             <i class="mdi mdi-account-outline"></i>
                                             <span class="nav-text">My Profile</span>
                                             </a>
                                         </li>
                                         <li class="dropdown-footer">
-                                            <a class="dropdown-link-item" href="{{ route('user.logout') }}"> <i class="mdi mdi-logout"></i> Log Out </a>
+                                            <a class="dropdown-link-item" href="{{ route('admin.logout') }}"> <i class="mdi mdi-logout"></i> Log Out </a>
                                         </li>
                                     </ul>
                                 </li>
@@ -81,5 +84,6 @@
         <script src="{{ asset('template/plugins/simplebar/simplebar.min.js') }}"></script>
         <script src="{{ asset('template/js/mono.js') }}"></script>
         <script src="{{ asset('template/js/custom.js') }}"></script>
+        @yield('scripts')
     </body>
 </html>

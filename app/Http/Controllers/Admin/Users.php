@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserLoginRequest;
@@ -10,31 +10,31 @@ class Users extends Controller
 {
     public function login(){
         if(auth()->user()){
-            return redirect()->route('user.home');
+            return redirect()->route('admin.home');
         }else{
-            return view('user.login');
+            return view('admin.login');
         }
     }
 
     public function logaction(UserLoginRequest $request){
         $input = ['email'=>$request->email,'password'=>$request->password];
         if(auth()->attempt($input)){
-            return redirect()->route('user.home');
+            return redirect()->route('admin.home');
         }else{
-            return redirect()->route('user.login')->with('msg','Invalid Username or Password');
+            return redirect()->route('admin.login')->with('msg','Invalid Username or Password');
         }
     }
 
     public function home(){
-        return view('user.home');
+        return view('admin.home');
     }
 
     public function profile(){
-        return view('user.profile');
+        return view('admin.profile');
     }
 
     public function logout(){
         auth()->logout();
-        return redirect()->route('user.login');
+        return redirect()->route('admin.login');
     }
 }
