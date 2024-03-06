@@ -9,6 +9,8 @@ class Access extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['role_id','menu_id'];
+
     public function menu()
     {
         return $this->belongsTo(Menu::class);

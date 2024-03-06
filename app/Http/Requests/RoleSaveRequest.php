@@ -11,7 +11,7 @@ class RoleSaveRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class RoleSaveRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'role_name' => 'required|unique:roles',
+            'menu_list' => 'array|present',
         ];
     }
 }

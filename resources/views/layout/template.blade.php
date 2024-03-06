@@ -9,6 +9,7 @@
         <link href="https://fonts.googleapis.com/css?family=Karla:400,700|Roboto" rel="stylesheet">
         <link href="{{ asset('template/plugins/material/css/materialdesignicons.min.css') }}" rel="stylesheet" />
         <link href="{{ asset('template/plugins/simplebar/simplebar.css') }}" rel="stylesheet" />
+        <link href="{{ asset('template/plugins/toaster/toastr.min.css') }}" rel="stylesheet" />
         <!-- MONO CSS -->
         <link id="main-css-href" rel="stylesheet" href="{{ asset('template/css/style.css') }}" />
         <link rel="stylesheet" href="{{ asset('template/css/custom.css') }}" />
@@ -82,8 +83,38 @@
         <script src="{{ asset('template/plugins/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('template/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('template/plugins/simplebar/simplebar.min.js') }}"></script>
+        <script src="{{ asset('template/plugins/toaster/toastr.min.js') }}"></script>
         <script src="{{ asset('template/js/mono.js') }}"></script>
         <script src="{{ asset('template/js/custom.js') }}"></script>
+        <script>
+            toastr.options = {
+                closeButton: true,
+                debug: false,
+                newestOnTop: false,
+                progressBar: false,
+                positionClass: "toast-top-right",
+                preventDuplicates: false,
+                onclick: null,
+                showDuration: "3000",
+                hideDuration: "1000",
+                timeOut: "5000",
+                extendedTimeOut: "1000",
+                showEasing: "swing",
+                hideEasing: "linear",
+                showMethod: "fadeIn",
+                hideMethod: "fadeOut",
+            };
+
+            @if(Session::has('info'))
+                toastr.info("{{ Session::get('infor') }}");
+            @elseif(Session::has('success'))
+                toastr.success("{{ Session::get('success') }}");
+            @elseif(Session::has('warning'))
+                toastr.warning("{{ Session::get('warning') }}");
+            @elseif(Session::has('error'))
+                toastr.error("{{ Session::get('error') }}");
+            @endif
+        </script>
         @yield('scripts')
     </body>
 </html>
