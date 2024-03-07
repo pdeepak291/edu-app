@@ -27,7 +27,7 @@ Route::get('/admin/profile','Admin\Users@profile')->name('admin.profile');
 Route::get('/roles','Admin\Roles@report')->name('roles');
 Route::get('/add-role','Admin\Roles@add')->name('role.add');
 Route::post('/save-role','Admin\Roles@save')->name('role.save');
-Route::get('/view-role','Admin\Roles@view')->name('role.view');
+Route::get('/view-role/{rid}','Admin\Roles@view')->name('role.view');
 Route::get('/edit-role/{rid}','Admin\Roles@edit')->name('role.edit');
 Route::post('/update-role','Admin\Roles@update')->name('role.update');
 Route::get('/delete-role/{rid}','Admin\Roles@delete')->name('role.delete');

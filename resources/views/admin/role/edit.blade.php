@@ -34,7 +34,7 @@
                                 <div class="col-12 col-sm-3">
                                     <div class="row">
                                         <div class="custom-control custom-checkbox d-inline-block mr-3 mb-3">
-                                            <input type="checkbox" class="custom-control-input checksub checkmain" id="menu{{ $menu->id }}" name="menu_list[]" value="{{ $menu->id }}">
+                                            <input type="checkbox" class="custom-control-input checksub checkmain" id="menu{{ $menu->id }}" name="menu_list[]" value="{{ $menu->id }}" {{ $access->contains('menu_id', $menu->id) ? 'checked' : '' }}>
                                             <label class="custom-control-label" for="menu{{ $menu->id }}">{{ $menu->menu_title }}</label>
                                         </div>
                                     </div>
@@ -43,7 +43,7 @@
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="custom-control custom-checkbox d-inline-block mr-3 mb-3 ml-2">
-                                                        <input type="checkbox" class="custom-control-input checksub checks-{{ $menu->id }}" id="menu{{ $submenu->id }}" name="menu_list[]" value="{{ $submenu->id }}">
+                                                        <input type="checkbox" class="custom-control-input checksub checks-{{ $menu->id }}" id="menu{{ $submenu->id }}" name="menu_list[]" value="{{ $submenu->id }}" {{ $access->contains('menu_id', $submenu->id) ? 'checked' : '' }}>
                                                         <label class="custom-control-label" for="menu{{ $submenu->id }}">{{ $submenu->menu_title }}</label>
                                                     </div>
                                                 </div>

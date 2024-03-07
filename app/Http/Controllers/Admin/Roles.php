@@ -8,6 +8,7 @@ use App\Http\Requests\RoleUpdateRequest;
 use App\Models\Access;
 use App\Models\Menu;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class Roles extends Controller
@@ -50,7 +51,7 @@ class Roles extends Controller
         try {
             $menus = Menu::where('parent_id',0)->with('submenus')->get();
             $role = Role::findOrFail(decrypt($rid));
-            $access = Access::where('role_id',decrypt($rid))->get()->toArray();
+            $access = Access::where('role_id',decrypt($rid))->get();
 
             return view('admin.role.edit',compact('menus','role','access'));
         } catch (\Exception $e) {
@@ -71,12 +72,43 @@ class Roles extends Controller
                         'menu_id' => $menu_id
                     ]);
                 }
-                return redirect()->route('roles')->with('success', 'Role update successfully.');
+                return redirect()->route('roles')->with('success', 'Role updated successfully.');
             }else{
                 return redirect()->back()->withInput()->with('error', 'Failed to update role.');
             }
         } catch (\Exception $e) {
             return redirect()->back()->withInput()->with('error', 'Failed to update role.');
+        }
+    }
+
+    public function view($rid){
+        try {
+            $menus = Menu::where('parent_id',0)->with('submenus')->get();
+            $role = Role::findOrFail(decrypt($rid));
+            $access = Access::where('role_id',decrypt($rid))->get();
+
+            return view('admin.role.view',compact('menus','role','access'));
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', 'Failed to retrieve role.');
+        }
+    }
+
+    public function delete($rid){
+        try {
+            $users = User::where('role_id',decrypt($rid))->get();
+            if($users->count() > 0){
+                return redirect()->back()->with('error', 'Failed to delete role.');
+            }else{
+                $role = Role::findOrFail(decrypt($rid));
+                if($role){
+                    $role->delete();
+                    return redirect()->route('roles')->with('success', 'Role deleted successfully.');
+                }else{
+                    return redirect()->back()->withInput()->with('error', 'Failed to delete role.');
+                }
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->withInput()->with('error', 'Failed to retrieve role.');
         }
     }
 }

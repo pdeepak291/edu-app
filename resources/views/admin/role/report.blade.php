@@ -24,13 +24,16 @@
                         <tbody>
                             @foreach($roles as $role)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $loop->index + $roles->firstItem() }}</td>
                                     <td>{{ $role->role_name }}</td>
                                     <td>{!! actionmenus(array(4,5,6),encrypt($role->id)) !!}</td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="p-3">
+                    {{ $roles->links('vendor.pagination.bootstrap-5') }}
+                    </div>
                 </div>
             </div>
         </div>
