@@ -40,4 +40,12 @@ Route::group(['middleware'=>'userauth'],function(){
     Route::get('/edit-user/{uid}','Admin\Users@edit')->name('user.edit');
     Route::post('/update-user','Admin\Users@update')->name('user.update');
     Route::get('/delete-user/{uid}','Admin\Users@delete')->name('user.delete');
+
+    Route::get('/universities','Admin\Universities@index')->name('universities');
+    Route::get('/add-university','Admin\Universities@create')->name('university.add');
+    Route::post('/save-university','Admin\Universities@store')->name('university.save');
+    Route::get('/view-university/{uid}','Admin\Universities@show')->name('university.view');
+    Route::get('/edit-university/{uid}','Admin\Universities@edit')->name('university.edit');
+    Route::post('/update-university','Admin\Universities@update')->name('university.update');
+    Route::get('/delete-university/{uid}','Admin\Universities@destroy')->name('university.delete');
 });

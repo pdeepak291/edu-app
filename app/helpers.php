@@ -4,12 +4,17 @@ use App\Models\Access;
 
 if (! function_exists('usermenus')) {
     function usermenus() {
-        $menus = Access::where('role_id', auth()->user()->role_id)
+        $roleid = auth()->user()->role_id;
+        if(cache()->has('user-menus-'.$roleid)){
+            $menus = cache()->get('user-menus-'.$roleid);
+        }else{
+            $menus = Access::where('role_id', auth()->user()->role_id)
                 ->whereHas('menu', function ($query){
                     $query->where('menu_type', '=', 'navigation');
                 })
                 ->with('menu')->get();
-
+            cache()->put('user-menus-'.$roleid,$menus);
+        }
         return view('layout.menus',compact('menus'));
     }
 }
