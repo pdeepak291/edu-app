@@ -48,4 +48,12 @@ Route::group(['middleware'=>'userauth'],function(){
     Route::get('/edit-university/{uid}','Admin\Universities@edit')->name('university.edit');
     Route::post('/update-university','Admin\Universities@update')->name('university.update');
     Route::get('/delete-university/{uid}','Admin\Universities@destroy')->name('university.delete');
+
+    Route::get('/courses','Admin\Courses@index')->name('courses');
+    Route::get('/add-course','Admin\Courses@create')->name('course.add');
+    Route::post('/save-course','Admin\Courses@store')->name('course.save');
+    Route::get('/view-course/{cid}','Admin\Courses@show')->name('course.view');
+    Route::get('/edit-course/{cid}','Admin\Courses@edit')->name('course.edit');
+    Route::post('/update-course','Admin\Courses@update')->name('course.update');
+    Route::get('/delete-course/{cid}','Admin\Courses@destroy')->name('course.delete');
 });

@@ -68,7 +68,7 @@ class Universities extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UniversityUpdateRequest $request, University $university)
+    public function update(UniversityUpdateRequest $request)
     {
         try {
             $university = University::find(decrypt($request->university_id));

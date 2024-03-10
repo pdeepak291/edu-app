@@ -3,7 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Access;
-use App\Models\University;
+use App\Models\Course;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -13,7 +13,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class UniversitiesDataTable extends DataTable
+class CoursesDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -22,21 +22,21 @@ class UniversitiesDataTable extends DataTable
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
-        $view = Access::have_access(14);
-        $edit = Access::have_access(15);
-        $delete = Access::have_access(16);
+        $view = Access::have_access(19);
+        $edit = Access::have_access(20);
+        $delete = Access::have_access(21);
 
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($item)use($view,$edit,$delete){
                 $html = '';
                 if($view){
-                    $html .= '<a href="'.route('university.view',encrypt($item->id)).'" title="View"><i class="mdi mdi-24px mdi-magnify-plus text-info"></i></a>';
+                    $html .= '<a href="'.route('course.view',encrypt($item->id)).'" title="View"><i class="mdi mdi-24px mdi-magnify-plus text-info"></i></a>';
                 }
                 if($edit){
-                    $html .= '<a href="'.route('university.edit',encrypt($item->id)).'" title="Edit"><i class="mdi mdi-24px mdi-pencil text-success"></i></a>';
+                    $html .= '<a href="'.route('course.edit',encrypt($item->id)).'" title="Edit"><i class="mdi mdi-24px mdi-pencil text-success"></i></a>';
                 }
                 if($delete){
-                    $html .= '<a href="'.route('university.delete',encrypt($item->id)).'" title="Delete" onClick="return confirm(\'Are you sure you want to delete?\');"><i class="mdi mdi-24px mdi-delete-empty text-danger"></i></a>';
+                    $html .= '<a href="'.route('course.delete',encrypt($item->id)).'" title="Delete" onClick="return confirm(\'Are you sure you want to delete?\');"><i class="mdi mdi-24px mdi-delete-empty text-danger"></i></a>';
                 }
                 return $html;
             })
@@ -46,9 +46,13 @@ class UniversitiesDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(University $model): QueryBuilder
+    public function query(Course $model): QueryBuilder
     {
-        return $model->newQuery();
+        $query = Course::select('courses.*', 'universities.university_name as university')
+        ->join('universities', 'courses.university_id', '=', 'universities.id')
+        ->orderBy('courses.course_name');
+
+        return $this->applyScopes($query);
     }
 
     /**
@@ -57,11 +61,11 @@ class UniversitiesDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('universities-table')
+                    ->setTableId('courses-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(0,'ASC')
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -79,8 +83,9 @@ class UniversitiesDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('university_code'),
-            Column::make('university_name'),
+            Column::make('course_code'),
+            Column::make('course_name'),
+            Column::make('university')->name('universities.university_name'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
@@ -94,6 +99,6 @@ class UniversitiesDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Universities_' . date('YmdHis');
+        return 'Courses_' . date('YmdHis');
     }
 }

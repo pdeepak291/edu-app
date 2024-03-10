@@ -10,6 +10,7 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\Facades\Image;
 use Intervention\Image\ImageManager;
@@ -43,6 +44,7 @@ class Users extends Controller
 
     public function logout(){
         auth()->logout();
+        Cache::flush();
         return redirect()->route('admin.login');
     }
 
