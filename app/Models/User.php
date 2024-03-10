@@ -21,9 +21,13 @@ class User extends Authenticatable
     protected $fillable = [
         'role_id',
         'name',
+        'gender',
+        'dob',
+        'mobile',
         'email',
+        'image',
         'password',
-        
+        'status'
     ];
 
     /**
@@ -45,4 +49,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getStatusTextAttribute(){
+        if($this->status=='1') return "Active";
+        else return "Inactive";
+    }
+
+    public function getDobFormattedAttribute(){
+        if($this->dob != NULL)
+            return date('d/m/Y',strtotime($this->dob));
+        return false;
+    }
+    
+    protected $appends = ['status_text','dob_formatted'];
+
+    public function role(){
+        return $this->belongsTo(Role::class,'role_id','id')->withDefault(['name' => '']);
+    }
 }

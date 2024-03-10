@@ -15,4 +15,15 @@ class Access extends Model
     {
         return $this->belongsTo(Menu::class);
     }
+
+    static function have_access($id){
+        
+        $role_id = auth()->user()->role_id;
+        $access = self::where('role_id',$role_id)->where('menu_id',$id)->get()->first();
+        
+        if(!empty($access)){
+            return $access->id;
+        }
+        return false;
+    }
 }

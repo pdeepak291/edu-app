@@ -7,12 +7,13 @@
         <title>@yield('title') | {{ config('app.name') }}</title>
         <!-- GOOGLE FONTS -->
         <link href="https://fonts.googleapis.com/css?family=Karla:400,700|Roboto" rel="stylesheet">
-        <link href="{{ asset('template/plugins/material/css/materialdesignicons.min.css') }}" rel="stylesheet" />
-        <link href="{{ asset('template/plugins/simplebar/simplebar.css') }}" rel="stylesheet" />
-        <link href="{{ asset('template/plugins/toaster/toastr.min.css') }}" rel="stylesheet" />
+        <link href="{{ asset('public/template/plugins/material/css/materialdesignicons.min.css') }}" rel="stylesheet" />
+        <link href="{{ asset('public/template/plugins/simplebar/simplebar.css') }}" rel="stylesheet" />
+        <link href="{{ asset('public/template/plugins/toaster/toastr.min.css') }}" rel="stylesheet" />
+        <link href="{{ asset('public/template/plugins/DataTables/DataTables-1.10.18/css/jquery.dataTables.min.css') }}" rel="stylesheet" />
         <!-- MONO CSS -->
-        <link id="main-css-href" rel="stylesheet" href="{{ asset('template/css/style.css') }}" />
-        <link rel="stylesheet" href="{{ asset('template/css/custom.css') }}" />
+        <link id="main-css-href" rel="stylesheet" href="{{ asset('public/template/css/style.css') }}" />
+        <link rel="stylesheet" href="{{ asset('public/template/css/custom.css') }}" />
         @yield('styles')
     </head>
     <body class="navbar-fixed sidebar-fixed" id="body">
@@ -54,8 +55,8 @@
                                 <!-- User Account -->
                                 <li class="dropdown user-menu">
                                     <button class="dropdown-toggle nav-link" data-toggle="dropdown">
-                                        <img src="images/user/user-xs-01.jpg" class="user-image rounded-circle" alt="User Image" />
-                                        <span class="d-none d-lg-inline-block">John Doe</span>
+                                        <img src="{{ url('storage/app/public/uploads/user/photo/thumb/'.auth()->user()->image) }}" class="user-image rounded-circle" alt="User Image" />
+                                        <span class="d-none d-lg-inline-block">{{ auth()->user()->name }}</span>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li>
@@ -80,12 +81,13 @@
                 </div>
             </div>
         </div>
-        <script src="{{ asset('template/plugins/jquery/jquery.min.js') }}"></script>
-        <script src="{{ asset('template/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ asset('template/plugins/simplebar/simplebar.min.js') }}"></script>
-        <script src="{{ asset('template/plugins/toaster/toastr.min.js') }}"></script>
-        <script src="{{ asset('template/js/mono.js') }}"></script>
-        <script src="{{ asset('template/js/custom.js') }}"></script>
+        <script src="{{ asset('public/template/plugins/jquery/jquery.min.js') }}"></script>
+        <script src="{{ asset('public/template/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('public/template/plugins/simplebar/simplebar.min.js') }}"></script>
+        <script src="{{ asset('public/template/plugins/toaster/toastr.min.js') }}"></script>
+        <script src="{{ asset('public/template/plugins/DataTables/DataTables-1.10.18/js/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('public/template/js/mono.js') }}"></script>
+        <script src="{{ asset('public/template/js/custom.js') }}"></script>
         <script>
             toastr.options = {
                 closeButton: true,

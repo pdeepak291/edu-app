@@ -7,10 +7,10 @@
         <title>{{ config('app.name') }}</title>
         <!-- GOOGLE FONTS -->
         <link href="https://fonts.googleapis.com/css?family=Karla:400,700|Roboto" rel="stylesheet">
-        <link href="{{ asset('template/plugins/material/css/materialdesignicons.min.css') }}" rel="stylesheet" />
-        <link href="{{ asset('template/plugins/simplebar/simplebar.css') }}" rel="stylesheet" />
+        <link href="{{ asset('public/template/plugins/material/css/materialdesignicons.min.css') }}" rel="stylesheet" />
+        <link href="{{ asset('public/template/plugins/simplebar/simplebar.css') }}" rel="stylesheet" />
         <!-- MONO CSS -->
-        <link id="main-css-href" rel="stylesheet" href="{{ asset('template/css/style.css') }}" />
+        <link id="main-css-href" rel="stylesheet" href="{{ asset('public/template/css/style.css') }}" />
     </head>
     <body class="bg-light-gray" id="body">
         <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh">
