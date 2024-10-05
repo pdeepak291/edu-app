@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Access;
+use App\Models\Company;
+
 
 if (! function_exists('usermenus')) {
     function usermenus() {
@@ -18,6 +20,7 @@ if (! function_exists('usermenus')) {
         return view('layout.menus',compact('menus'));
     }
 }
+
 
 if (! function_exists('haveaccess')) {
     function haveaccess($mid) {
@@ -52,5 +55,32 @@ if (! function_exists('actionmenus')) {
         ->with('menu')->get();
 
         return view('layout.actions',compact('menus','id'));
+    }
+}
+
+if (! function_exists('settings_menus')) {
+    function settings_menus() {
+        $roleid = auth()->user()->role_id;
+        if(cache()->has('user-settings-'.$roleid)){
+            $menus = cache()->get('user-settings-'.$roleid);
+        }else{
+            $menus = Access::where('role_id', auth()->user()->role_id)
+                ->whereHas('menu', function ($query){
+                    $query->where('menu_type', '=', 'settings');
+                })
+                ->with('menu')->get();
+            cache()->put('user-settings-'.$roleid,$menus);
+        }
+        return view('layout.menus',compact('menus'));
+    }
+}
+
+if (!function_exists('getlogo')) {
+    function getlogo() {
+        $company = Company::find(1);
+        if($company)
+            return $company->logo;
+        else
+            return false;
     }
 }

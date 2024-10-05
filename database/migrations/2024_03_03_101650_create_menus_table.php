@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('menu_route');
             $table->string('menu_category');
             $table->string('menu_type');
-            $table->string('menu_warning');
-            $table->string('menu_target');
+            $table->string('menu_warning')->nullable();
+            $table->string('menu_target')->nullable();
             $table->unsignedBigInteger('menu_order');
             $table->timestamps();
             $table->softDeletes();

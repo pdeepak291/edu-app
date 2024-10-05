@@ -13,17 +13,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
-Route::get('/admin','Admin\Users@login')->name('admin.login');
+Route::get('/','Admin\Users@login')->name('admin.login');
 Route::post('/admin/logaction','Admin\Users@logaction')->name('admin.logaction');
 Route::group(['middleware'=>'userauth'],function(){
     Route::get('/admin/home','Admin\Users@home')->name('admin.home');
     Route::get('/admin/logout','Admin\Users@logout')->name('admin.logout');
     Route::get('/admin/profile','Admin\Users@profile')->name('admin.profile');
+    
+    Route::get('/settings','Admin\Settings@index')->name('admin.settings');
+    Route::post('/settings-update','Admin\Settings@update')->name('settings.update');
+
+    Route::get('/category','Admin\Categories@show')->name('admin.category');
+    Route::get('/add-category','Admin\Categories@add')->name('category.add');
+    Route::post('/save-category','Admin\Categories@save')->name('category.save');
+    Route::get('/edit-category/{rid}','Admin\Categories@edit')->name('category.edit');
+    Route::post('/update-category','Admin\Categories@update')->name('category.update');
+
+    Route::get('/types','Admin\Types@report')->name('type');
+    Route::get('/add-type','Admin\Types@add')->name('type.add');
+    Route::post('/save-type','Admin\Types@save')->name('type.save');
+    Route::get('/view-type/{tid}','Admin\Types@view')->name('type.view');
+    Route::get('/edit-type/{tid}','Admin\Types@edit')->name('type.edit');
+    Route::post('/update-type','Admin\Types@update')->name('type.update');
+    Route::get('/delete-type/{tid}','Admin\Types@delete')->name('type.delete');
+
 
     Route::get('/roles','Admin\Roles@report')->name('roles');
     Route::get('/add-role','Admin\Roles@add')->name('role.add');
@@ -40,20 +53,4 @@ Route::group(['middleware'=>'userauth'],function(){
     Route::get('/edit-user/{uid}','Admin\Users@edit')->name('user.edit');
     Route::post('/update-user','Admin\Users@update')->name('user.update');
     Route::get('/delete-user/{uid}','Admin\Users@delete')->name('user.delete');
-
-    Route::get('/universities','Admin\Universities@index')->name('universities');
-    Route::get('/add-university','Admin\Universities@create')->name('university.add');
-    Route::post('/save-university','Admin\Universities@store')->name('university.save');
-    Route::get('/view-university/{uid}','Admin\Universities@show')->name('university.view');
-    Route::get('/edit-university/{uid}','Admin\Universities@edit')->name('university.edit');
-    Route::post('/update-university','Admin\Universities@update')->name('university.update');
-    Route::get('/delete-university/{uid}','Admin\Universities@destroy')->name('university.delete');
-
-    Route::get('/courses','Admin\Courses@index')->name('courses');
-    Route::get('/add-course','Admin\Courses@create')->name('course.add');
-    Route::post('/save-course','Admin\Courses@store')->name('course.save');
-    Route::get('/view-course/{cid}','Admin\Courses@show')->name('course.view');
-    Route::get('/edit-course/{cid}','Admin\Courses@edit')->name('course.edit');
-    Route::post('/update-course','Admin\Courses@update')->name('course.update');
-    Route::get('/delete-course/{cid}','Admin\Courses@destroy')->name('course.delete');
 });

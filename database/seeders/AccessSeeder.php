@@ -13,17 +13,11 @@ class AccessSeeder extends Seeder
      */
     public function run(): void
     {
-        Access::create([
-            'role_id' => 1,
-            'menu_id' =>1
-        ]);
-        Access::create([
-            'role_id' => 1,
-            'menu_id' =>2
-        ]);
-        Access::create([
-            'role_id' => 1,
-            'menu_id' =>3
-        ]);
+        for($i=1;$i<=11;$i++){
+            Access::create([
+                'role_id' => 1,
+                'menu_id' => $i
+            ]);
+        }
     }
 }

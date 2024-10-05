@@ -45,7 +45,6 @@ class UsersDataTable extends DataTable
                 }
                 return $html;
             })->rawColumns(['image', 'action'])
-
             ->setRowId('id');
     }
 

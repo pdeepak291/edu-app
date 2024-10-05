@@ -30,7 +30,7 @@
                     <!-- begin sidebar scrollbar -->
                     <div class="sidebar-left" data-simplebar style="height: 100%;">
                         <!-- sidebar menu -->
-                        {!! usermenus() !!}
+                        {!! settings_menus() !!}
                         {{-- <ul class="nav sidebar-inner" id="sidebar-menu">
                             <li>
                                 <a class="sidenav-item-link" href="{{ route('user.home') }}">
@@ -60,14 +60,12 @@
                                         <span class="d-none d-lg-inline-block">{{ auth()->user()->name }}</span>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-right">
-                                        @if(haveaccess(12))
-                                            <li>
-                                                <a class="dropdown-link-item" href="{{ route('admin.settings') }}">
-                                                <i class="mdi mdi-settings"></i>
-                                                <span class="nav-text">Settings</span>
-                                                </a>
-                                            </li>
-                                        @endif
+                                        <li>
+                                            <a class="dropdown-link-item" href="{{ route('admin.home') }}">
+                                            <i class="mdi mdi-home"></i>
+                                            <span class="nav-text">Home</span>
+                                            </a>
+                                        </li>
                                         <li>
                                             <a class="dropdown-link-item" href="{{ route('admin.profile') }}">
                                             <i class="mdi mdi-account-outline"></i>

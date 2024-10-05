@@ -15,6 +15,8 @@ use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\Facades\Image;
 use Intervention\Image\ImageManager;
 
+use DB;
+
 class Users extends Controller
 {
     public function login(){
@@ -40,6 +42,10 @@ class Users extends Controller
 
     public function profile(){
         return view('admin.profile');
+    }
+    
+    public function settings(){
+        return view('admin.settings.settings');
     }
 
     public function logout(){
@@ -69,6 +75,7 @@ class Users extends Controller
                 $img = $img->resize(150,150);
                 $img->save(storage_path('app/public/uploads/user/photo/thumb/'.$filename));
             }
+
             $user = User::create([
                 'name' => $request->name,
                 'role_id' => $request->role,
